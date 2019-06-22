@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-11-2018 a las 18:50:53
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 22-06-2019 a las 15:52:18
+-- Versión del servidor: 5.7.26
+-- Versión de PHP: 7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `donpepe`
 --
-CREATE DATABASE IF NOT EXISTS `donpepe` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `donpepe`;
 
 -- --------------------------------------------------------
 
@@ -28,13 +28,15 @@ USE `donpepe`;
 -- Estructura de tabla para la tabla `libros`
 --
 
-CREATE TABLE `libros` (
-  `id_libro` int(5) NOT NULL,
+DROP TABLE IF EXISTS `libros`;
+CREATE TABLE IF NOT EXISTS `libros` (
+  `id_libro` int(5) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(90) NOT NULL,
   `autor` varchar(80) NOT NULL,
   `precio` int(5) NOT NULL,
-  `cover` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `cover` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_libro`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `libros`
@@ -64,12 +66,14 @@ INSERT INTO `libros` (`id_libro`, `titulo`, `autor`, `precio`, `cover`) VALUES
 -- Estructura de tabla para la tabla `ratings`
 --
 
-CREATE TABLE `ratings` (
-  `id_rating` int(5) NOT NULL,
+DROP TABLE IF EXISTS `ratings`;
+CREATE TABLE IF NOT EXISTS `ratings` (
+  `id_rating` int(5) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(5) NOT NULL,
   `id_libro` int(5) NOT NULL,
   `fecha` date NOT NULL,
-  `rating` int(1) NOT NULL
+  `rating` int(1) NOT NULL,
+  PRIMARY KEY (`id_rating`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -78,62 +82,26 @@ CREATE TABLE `ratings` (
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `usuarios` (
-  `id_usuario` int(5) NOT NULL,
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usuario` int(5) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(20) NOT NULL,
   `clave` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `email` varchar(80) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `email` varchar(80) NOT NULL,
+  PRIMARY KEY (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `usuario`, `clave`, `nombre`, `email`) VALUES
-(1, 'eva', '81dc9bdb52d04dc20036dbd8313ed055', 'Eva Ferreira', 'adsf@sdf.com');
+(1, 'eva', '81dc9bdb52d04dc20036dbd8313ed055', 'Eva Ferreira', 'adsf@sdf.com'),
+(2, 'ale', 'd41d8cd98f00b204e9800998ecf8427e', 'Alejandro', 'alejandro.arancibia87@gmail.com'),
+(3, 'cris', '81dc9bdb52d04dc20036dbd8313ed055', 'Cristian', 'carancibia@gmail.com');
+COMMIT;
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `libros`
---
-ALTER TABLE `libros`
-  ADD PRIMARY KEY (`id_libro`);
-
---
--- Indices de la tabla `ratings`
---
-ALTER TABLE `ratings`
-  ADD PRIMARY KEY (`id_rating`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `libros`
---
-ALTER TABLE `libros`
-  MODIFY `id_libro` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT de la tabla `ratings`
---
-ALTER TABLE `ratings`
-  MODIFY `id_rating` int(5) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
